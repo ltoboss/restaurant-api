@@ -31,3 +31,7 @@ yarn dev
 
 `npm install typescript @types/node`
 
+## Database
+
+Database is on the project called api_database, just install on MySQL
+
