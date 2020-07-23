@@ -1,0 +1,1 @@
+{"version":3,"file":"CreateLogCommand.js","sourceRoot":"","sources":["../../../../../../src/API/Application/Commands/Logs/CreateLogCommand.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;AAAA,2DAA6C;AAC7C,0CAA4B;AAE5B,MAAqB,gBAAiB,SAAQ,4BAAO;IAEnD,YAAY,IAAY;QACtB,KAAK,EAAE,CAAC;QACR,CAAC,CAAC,MAAM,CAAC,IAAI,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC;CACF;AAND,mCAMC"}

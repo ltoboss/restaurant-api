@@ -1,0 +1,1 @@
+{"version":3,"file":"oauth2.js","sourceRoot":"","sources":["../../../../src/API/Config/oauth2.ts"],"names":[],"mappings":";;AAAA,MAAM,mBAAmB,GAAG;IAC1B,KAAK,EAAE,OAAO,CAAC,iEAAiE,CAAC;IACjF,mBAAmB,EAAE,EAAE,GAAG,EAAE,GAAG,EAAE;IACjC,oBAAoB,EAAE,CAAC,EAAE,GAAG,EAAE,GAAG,EAAE,CAAC,GAAG,CAAC;CACzC,CAAC;AAEF,kBAAe,mBAAmB,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"RemovePidCommand.js","sourceRoot":"","sources":["../../../../../../src/API/Application/Commands/CommandPids/RemovePidCommand.ts"],"names":[],"mappings":";;AAAA,2DAA6C;AAE7C,MAAqB,gBAAiB,SAAQ,4BAAO;IAGnD,YAAY,MAAc;QACxB,KAAK,EAAE,CAAC;QAER,IAAI,CAAC,OAAO,GAAG,MAAM,IAAI,QAAQ,CAAC;IACpC,CAAC;IAED,UAAU;QACR,OAAO,IAAI,CAAC,OAAO,CAAC;IACtB,CAAC;CACF;AAZD,mCAYC"}

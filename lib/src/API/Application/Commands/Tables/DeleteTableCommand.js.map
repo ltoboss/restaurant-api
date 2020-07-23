@@ -1,0 +1,1 @@
+{"version":3,"file":"DeleteTableCommand.js","sourceRoot":"","sources":["../../../../../../src/API/Application/Commands/Tables/DeleteTableCommand.ts"],"names":[],"mappings":";;AAEA,2DAA6C;AAE7C,MAAqB,kBAAmB,SAAQ,4BAAO;IAMrD,YAAY,EAAW;QACrB,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;IACf,CAAC;IAED,KAAK;QACH,OAAO,IAAI,CAAC,EAAE,CAAC;IACjB,CAAC;CACF;AAdD,qCAcC"}

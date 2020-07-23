@@ -1,0 +1,1 @@
+{"version":3,"file":"UserPolicies.js","sourceRoot":"","sources":["../../../../../src/API/Application/Policies/UserPolicies.ts"],"names":[],"mappings":";;;;;;;;;;;;AAEA,SAAsB,cAAc,CAAC,IAAU,EAAE,GAAG;;QAClD,IAAI;YAEF,MAAM,MAAM,GAAG,MAAM,GAAG,CAAC,KAAK,CAAC,MAAM,CAAC;YACtC,OAAO,IAAI,CAAC;SAEb;QAAC,OAAO,KAAK,EAAE;YACd,OAAO,KAAK,CAAC;SACd;IACH,CAAC;CAAA;AATD,wCASC"}

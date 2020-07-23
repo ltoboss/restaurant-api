@@ -1,0 +1,2658 @@
+{
+  "basePath": "/api",
+  "definitions": {
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        }
+      }
+    },
+    "Orderby": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "number"
+        },
+        "order": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        }
+      }
+    },
+    "ResponsePagination": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "totalResults": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseException": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseExceptionBadRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "errors": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseUpdate": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ObjectUpdateMultiple": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseUpdateMultiple": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ObjectUpdateMultiple"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseDelete": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Brand": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "supplierName": {
+          "type": "string"
+        }
+      }
+    },
+    "Color": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "colorHex": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Container": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "row": {
+          "type": "integer"
+        },
+        "column": {
+          "type": "integer"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "on_right_side": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "integer"
+        }
+      }
+    },
+    "ContainerInventory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "row": {
+          "type": "integer"
+        },
+        "column": {
+          "type": "integer"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "on_right_side": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "integer"
+        },
+        "rack": {
+          "$ref": "#/definitions/Rack"
+        }
+      }
+    },
+    "DataResponseContainer": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Container"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DomainSize": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "RequestInventoryProcess": {
+      "type": "object",
+      "properties": {
+        "productReference": {
+          "type": "string"
+        },
+        "containerReference": {
+          "type": "string"
+        },
+        "warehouseId": {
+          "type": "integer"
+        },
+        "force": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RequestInventoryProcessOptions": {
+      "type": "object",
+      "properties": {
+        "warehouseId": {
+          "type": "integer"
+        },
+        "rackId": {
+          "type": "integer"
+        },
+        "row": {
+          "type": "integer"
+        },
+        "column": {
+          "type": "integer"
+        },
+        "containerId": {
+          "type": "integer"
+        },
+        "containerReference": {
+          "type": "string"
+        }
+      }
+    },
+    "RequestInventoryProcessGlobal": {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "$ref": "#/definitions/RequestInventoryProcessOptions"
+        },
+        "destination": {
+          "$ref": "#/definitions/RequestInventoryProcessOptions"
+        }
+      }
+    },
+    "PostInventoryProcessContainers": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "PostInventoryProcessContainersReferences": {
+      "type": "object",
+      "properties": {
+        "warehouseId": {
+          "type": "integer"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ResponseInventoryProcess": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "typeAction": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductResponseSimple"
+        },
+        "logUser": {
+          "$ref": "#/definitions/ResponseUser"
+        }
+      }
+    },
+    "ResponseFullInventoryProcess": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "typeAction": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductResponseSimple"
+        },
+        "logUser": {
+          "$ref": "#/definitions/ResponseUser"
+        },
+        "originWarehouse": {
+          "$ref": "#/definitions/WarehouseResponse"
+        },
+        "originRack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "originContainer": {
+          "$ref": "#/definitions/Container"
+        },
+        "destinationWarehouse": {
+          "$ref": "#/definitions/WarehouseResponse"
+        },
+        "destinationRack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "destinationContainer": {
+          "$ref": "#/definitions/Container"
+        }
+      }
+    },
+    "ResponseInventoryProcessByContainers": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "processes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseFullInventoryProcess"
+          }
+        }
+      }
+    },
+    "ResponseInventoryProcessByContainersReferences": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "processes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseFullInventoryProcess"
+          }
+        }
+      }
+    },
+    "ResponseInventoryProcessPost": {
+      "type": "object",
+      "properties": {
+        "productReference": {
+          "type": "string"
+        },
+        "containerReference": {
+          "type": "string"
+        },
+        "warehouseId": {
+          "type": "integer"
+        },
+        "user": {
+          "$ref": "#/definitions/ResponseUser"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "typeAction": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "originWarehouse": {
+          "$ref": "#/definitions/Warehouse"
+        },
+        "originRack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "originContainer": {
+          "$ref": "#/definitions/Container"
+        },
+        "destinationWarehouse": {
+          "$ref": "#/definitions/Warehouse"
+        },
+        "destinationRack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "destinationContainer": {
+          "$ref": "#/definitions/Container"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/Product"
+        },
+        "logUser": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "DataResponseInventoryProcesses": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryProcess"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataFullResponseInventoryProcesses": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseFullInventoryProcess"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoryProcessPost": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ResponseInventoryProcessPost"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoryProcessByContainers": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryProcessByContainers"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoryProcessByContainersReferences": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryProcessByContainersReferences"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResponseInventoryProcessPicking": {
+      "type": "object",
+      "properties": {
+        "inventory": {
+          "$ref": "#/definitions/ResponseInventory"
+        },
+        "shoePickingPending": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShoePicking"
+          }
+        }
+      }
+    },
+    "DataResponseInventoryProcessPicking": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ResponseInventoryProcessPicking"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResponseInventory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "warehouse": {
+          "$ref": "#/definitions/WarehouseResponse"
+        },
+        "rack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "container": {
+          "$ref": "#/definitions/Container"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductResponseSimple"
+        }
+      }
+    },
+    "ResponseInventoryWithRackContainer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "rack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "container": {
+          "$ref": "#/definitions/Container"
+        }
+      }
+    },
+    "PostInventoryContainers": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "PostInventorySearch": {
+      "type": "object",
+      "properties": {
+        "warehouses": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "containers": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "colors": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "productReferencePattern": {
+          "type": "string"
+        },
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        },
+        "orderby": {
+          "$ref": "#/definitions/Orderby"
+        }
+      }
+    },
+    "PostInventoryContainersReferences": {
+      "type": "object",
+      "properties": {
+        "warehouseId": {
+          "type": "integer"
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DataResponseInventory": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ResponseInventory"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResponseInventoryByContainer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductResponseSimple"
+        },
+        "container": {
+          "$ref": "#/definitions/Container"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ResponseInventorySearch": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "warehouse": {
+          "$ref": "#/definitions/WarehouseResponse"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductInventory"
+        },
+        "container": {
+          "$ref": "#/definitions/ContainerInventory"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ResponseInventoryByContainers": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "inventory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByContainer"
+          }
+        }
+      }
+    },
+    "ResponseInventoryByContainersReferences": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "inventory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByContainer"
+          }
+        }
+      }
+    },
+    "ResponseInventoryByWarehouse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "rack": {
+          "$ref": "#/definitions/Rack"
+        },
+        "container": {
+          "$ref": "#/definitions/Container"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductResponseSimple"
+        }
+      }
+    },
+    "ResponseInventoryByRack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "container": {
+          "$ref": "#/definitions/Container"
+        },
+        "productShoeUnit": {
+          "$ref": "#/definitions/ProductResponseSimple"
+        }
+      }
+    },
+    "DataResultsInventoriesByContainers": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByContainer"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/ResponsePagination"
+        }
+      }
+    },
+    "DataResultsInventorySearchResults": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventorySearch"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/ResponsePagination"
+        }
+      }
+    },
+    "DataResponseInventories": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventory"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoriesByWarehouse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByWarehouse"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoriesByRack": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByRack"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoriesByContainer": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByContainer"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoriesByContainers": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/DataResultsInventoriesByContainers"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoriesSearch": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/DataResultsInventorySearchResults"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseInventoriesByContainersReferences": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseInventoryByContainersReferences"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "Model": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "domainSize": {
+          "$ref": "#/definitions/DomainSize"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "ModelResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "ModelInventory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "color": {
+          "$ref": "#/definitions/Color"
+        }
+      }
+    },
+    "ModelWithBrand": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "brand": {
+          "$ref": "#/definitions/Brand"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "initialWarehouse": {
+          "$ref": "#/definitions/Warehouse"
+        },
+        "initialWarehouseReference": {
+          "type": "string"
+        },
+        "model": {
+          "$ref": "#/definitions/Model"
+        },
+        "size": {
+          "$ref": "#/definitions/Size"
+        }
+      }
+    },
+    "ProductStore": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "initialWarehouse": {
+          "$ref": "#/definitions/WarehouseResponse"
+        },
+        "initialWarehouseReference": {
+          "type": "string"
+        },
+        "model": {
+          "$ref": "#/definitions/ModelResponse"
+        },
+        "size": {
+          "$ref": "#/definitions/SizeResponse"
+        }
+      }
+    },
+    "ProductResponseSimple": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        }
+      }
+    },
+    "PostProductRelabel": {
+      "type": "object",
+      "properties": {
+        "warehouseId": {
+          "type": "integer"
+        },
+        "modelId": {
+          "type": "integer"
+        },
+        "sizeId": {
+          "type": "integer"
+        },
+        "locationReference": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductInventory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "model": {
+          "$ref": "#/definitions/ModelInventory"
+        },
+        "size": {
+          "$ref": "#/definitions/SizeResponse"
+        }
+      }
+    },
+    "DataResponseProducts": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductResponse"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseProduct": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ProductResponse"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "Rack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "hall": {
+          "type": "integer"
+        },
+        "columns": {
+          "type": "integer"
+        },
+        "rows": {
+          "type": "integer"
+        }
+      }
+    },
+    "ShoePicking": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "typeSelectionCriteria": {
+          "type": "integer"
+        },
+        "typeGeneration": {
+          "type": "integer"
+        },
+        "typePreparationLine": {
+          "type": "integer"
+        },
+        "lineRequestId": {
+          "type": "integer"
+        },
+        "lineRequestReference": {
+          "type": "string"
+        },
+        "lineRequestSource": {
+          "type": "integer"
+        },
+        "inventory": {
+          "$ref": "#/definitions/ResponseInventoryWithRackContainer"
+        },
+        "product": {
+          "$ref": "#/definitions/ProductInventory"
+        }
+      }
+    },
+    "DataResponseShoePicking": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShoePicking"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "Size": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "domainSize": {
+          "$ref": "#/definitions/DomainSize"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "SizeResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "NewUser": {
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": "integer"
+            }
+          }
+        }
+      }
+    },
+    "ResponseUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Warehouse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "is_store": {
+          "type": "boolean"
+        },
+        "is_main": {
+          "type": "boolean"
+        },
+        "group": {
+          "$ref": "#/definitions/Group"
+        }
+      }
+    },
+    "WarehouseResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "is_store": {
+          "type": "boolean"
+        },
+        "is_main": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DataResponseWarehouse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/WarehouseResponse"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "WorkwaveWarehouse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "thresholdConsolidated": {
+          "type": "integer"
+        },
+        "thresholdShippingStore": {
+          "type": "integer"
+        },
+        "typeGeneration": {
+          "type": "integer"
+        },
+        "typeShippingOrder": {
+          "type": "integer"
+        },
+        "typePacking": {
+          "type": "integer"
+        },
+        "warehouse": {
+          "$ref": "#/definitions/Warehouse"
+        }
+      }
+    },
+    "PostWorkwaveWarehouse": {
+      "type": "object",
+      "properties": {
+        "warehouseId": {
+          "type": "integer"
+        },
+        "thresholdConsolidated": {
+          "type": "integer"
+        },
+        "thresholdShippingStore": {
+          "type": "integer"
+        },
+        "typeGeneration": {
+          "type": "integer"
+        },
+        "typeShippingOrder": {
+          "type": "integer"
+        },
+        "typePacking": {
+          "type": "integer"
+        }
+      }
+    },
+    "PostWorkwaveWarehouseRefactor": {
+      "type": "object",
+      "properties": {
+        "groupsWarehousePickingId": {
+          "type": "integer"
+        },
+        "thresholdConsolidated": {
+          "type": "integer"
+        },
+        "typeShippingOrder": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResponseWorkwave": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "typeExecution": {
+          "type": "integer"
+        },
+        "releaseDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "executed": {
+          "type": "boolean"
+        },
+        "executedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "warehouses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkwaveWarehouse"
+          }
+        }
+      }
+    },
+    "ResponseWorkwaveComplete": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "typeExecution": {
+          "type": "integer"
+        },
+        "releaseDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "executed": {
+          "type": "boolean"
+        },
+        "executedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "everyday": {
+          "type": "boolean"
+        },
+        "weeklyPlan": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "warehouses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkwaveWarehouse"
+          }
+        }
+      }
+    },
+    "ResponseWorkwaveTemplate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "warehouses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkwaveWarehouse"
+          }
+        }
+      }
+    },
+    "PostWorkwave": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "everyday": {
+          "type": "boolean"
+        },
+        "weeklyPlan": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "groupsWarehousePicking": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostWorkwaveWarehouseRefactor"
+          }
+        },
+        "orderIds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "PostWorkwaveUpdate": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "everyday": {
+          "type": "boolean"
+        },
+        "weeklyPlan": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "warehouses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostWorkwaveWarehouse"
+          }
+        }
+      }
+    },
+    "PostWorkwaveExecuted": {
+      "type": "object",
+      "properties": {
+        "executed": {
+          "type": "boolean"
+        },
+        "executedDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "DataResponseWorkwaveComplete": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ResponseWorkwaveComplete"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseWorkwaves": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseWorkwave"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponseWorkwavesTemplates": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseWorkwaveTemplate"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ActionType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseActionTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ExecutionTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseExecutionTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExecutionTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "GenerationTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseGenerationTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GenerationTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "IncidenceType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseIncidenceTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IncidenceType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "labelTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseLabelTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LabelType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusLocationTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusLocationTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SorterLocationTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "OrderByTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseOrderByTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderByTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "PackingType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponsePackingTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackingType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "PickingType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponsePickingTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PickingType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "PreparationLinesTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponsePreparationLinesTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PreparationLinesTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "PrintFilterTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponsePrintFilterTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/printFilterTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "PrintLabelTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer"
+        }
+      }
+    },
+    "DataResponsePrintLabelTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/printLabelTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ProcessType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseProcessesTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProcessType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ProductType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseProductTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "SelectionCriteriaTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseSelectionCriteriaTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectionCriteriaTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ShippingOrderLineRequestType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseShippingOrderLineRequestTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShippingOrderLineRequestType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "ShippingOrderType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseShippingOrderTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShippingOrderType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusSorterLocationActionTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusSorterLocationActionTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SorterLocationActionTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusSorterLocationTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "StatusLineType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusLineTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusLineType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusPackingSorterType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusPackingSorterTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusPackingSorterType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusPackingType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusPackingTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusPackingType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusPickingProductTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusPickingProductTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusPickingProductTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusPickingStoreTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusPickingStoreTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusPickingStoreTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusPickingTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusPickingTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusPickingTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusProductNotFoundTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusProductNotFoundTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusProductNotFoundTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusProductTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusProductTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusProductTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StatusWorkwaveTypes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStatusWorkwaveTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusWorkwaveTypes"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "StoreType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseStoreTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoreType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "TypeKeyWarehouse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseTypeKeyWarehouse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypeKeyWarehouse"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "TypesOrderPickingStoreProducts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseTypesOrderPickingStoreProducts": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypesOrderPickingStoreProducts"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "TypesOrderProducts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseTypesOrderProducts": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TypesOrderProducts"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "WarehouseConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseWarehouseConfigs": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WarehouseConfig"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    },
+    "WorkwaveType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataResponseWorkwaveTypes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkwaveType"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "info": {
+    "description": "API Restaurant",
+    "title": "API Restaurant",
+    "version": "0.0.0"
+  },
+  "paths": {
+    
+  },
+  "swagger": "2.0",
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "access_token",
+      "in": "query"
+    },
+    "basic": {
+      "type": "basic"
+    }
+  },
+  "host": "localhost:3000",
+  "responses": {},
+  "parameters": {},
+  "tags": []
+}
